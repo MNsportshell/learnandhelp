@@ -1,278 +1,133 @@
 <?php
-$status = session_status();
-if ($status == PHP_SESSION_NONE) {
-    session_start();
-}
+
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+require_once __DIR__ . '/db_configuration.php';   // provides $db
+session_write_close();
+
+
+$perPage = 10;
+$page = (isset($_GET['page']) && ctype_digit($_GET['page']) && $_GET['page'] > 0)
+        ? (int)$_GET['page'] : 1;
+
+$totalRows  = $db->query("SELECT COUNT(*) AS cnt FROM classes")
+                 ->fetch_assoc()['cnt'];
+$totalPages = max(1, (int)ceil($totalRows / $perPage));
+$page       = min($page, $totalPages);
+$offset     = ($page - 1) * $perPage;
+
+
+$sql = "
+  SELECT Class_Id, Class_Name, Description, Image_URL
+    FROM classes
+ORDER BY Class_Name
+   LIMIT $perPage OFFSET $offset";
+$result = $db->query($sql);
 ?>
-
 <!DOCTYPE html>
-<html lang="en-US">
-
+<html lang="en">
 <head>
-    <link rel="icon" href="images/icon_logo.png" type="image/icon type">
-    <title>Learn and Help</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#classes thead tr').clone(true).appendTo('#classes thead');
-            $('#classes thead tr:eq(1) th').each(function() {
-                var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-            });
+  <meta charset="UTF-8">
+  <title>Classes | Learn and Help</title>
 
-            var table = $('#classes').DataTable({
-                initComplete: function() {
-                    // Apply the search
-                    this.api()
-                        .columns()
-                        .every(function() {
-                            var that = this;
 
-                            $('input', this.header()).on('keyup change clear', function() {
-                                if (that.search() !== this.value) {
-                                    that.search(this.value).draw();
-                                }
-                            });
-                        });
-                },
-            });
+  <link rel="icon" href="images/icon_logo.png" type="image/icon type">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&family=Montserrat:wght@300;700;900&display=swap" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
 
-            $('a.toggle-vis').on('click', function(e) {
-                e.preventDefault();
+  <style>
+    body{margin:0;font-family:'Montserrat',sans-serif;background:#f8f8f8;color:#252525;}
 
-                // Get the column API object
-                var column = table.column($(this).attr('data-column'));
+    
+    .banner-wrapper{position:relative;width:100vw;left:50%;margin-left:-50vw;height:200px;background:#fff;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+    .banner-wrapper img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
+    @media(max-width:700px){.banner-wrapper{height:207px;}}
 
-                // Toggle the visibility
-                column.visible(!column.visible());
-            });
-        });
-    </script>
-    <style>
-        .search-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    
+    .page-title{
+      font-family:'Montserrat',sans-serif;
+      font-size:3em;          
+      font-weight:700;        
+      text-align:center;
+      margin:60px 0 30px;
+      color:#252525;
+    }
 
-        .search-input {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-        }
+    
+    .classes-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:30px;
+      max-width:1100px;
+      margin:60px auto;
+      padding:0 20px;
+    }
+    @media(max-width:700px){.classes-grid{grid-template-columns:1fr;}}
 
-        .search-button {
-            padding: 10px 20px;
-            background-color: #99D930;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .class-card{
+      background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,.08);
+      overflow:hidden;transition:transform .2s;display:flex;flex-direction:column;
+    }
+    .class-card:hover{transform:translateY(-6px);}
+    .class-image{width:100%;height:200px;object-fit:cover;}
+    .class-info{padding:22px;text-align:center;flex-grow:1;display:flex;flex-direction:column;}
+    .class-info h3{margin:0 0 12px;font-size:1.35em;font-weight:900;color:#252525;}
+    .class-desc{font-size:0.95em;color:#444;flex-grow:1;}
 
-        .school-icon {
-            text-align: center;
-            vertical-align: top;
-            padding: 10px;
-        }
-
-        .school-icon img {
-            max-width: 100px;
-            max-height: 100px;
-        }
-
-        .school-info p {
-            font-size: 14px;
-            margin: 0;
-            color: #333;
-        }
-
-        .dot {
-            cursor: pointer;
-            height: 10px;
-            width: 10px;
-            margin: 0 2px;
-            background-color: #FFFFFF;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active,
-        .dot:hover {
-            background-color: #717171;
-        }
-
-        .slideshow-container {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-        }
-
-        .inverse {
-            position: relative;
-            background-size: cover;
-            height: 300px;
-            overflow: hidden;
-        }
-
-        .inverse h1 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 3;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            color: white;
-            font-size: 3em;
-            text-align: center;
-            width: 100%;
-        }
-
-        .banner_slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-
-        .banner_slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .dots-container {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            z-index: 2;
-        }
-    </style>
+    /* pager links */
+    .pager{text-align:center;font-weight:bold;margin:40px 0;}
+    .pager a{margin:0 18px;color:#252525;text-decoration:none;}
+    .pager a:hover{color:#99d930;}
+  </style>
 </head>
-
 <body>
-    <?php include 'show-navbar.php'; ?>
-    <?php show_navbar(); ?>
-    <header class="inverse">
-        <div class="slideshow-container">
-            <?php
-            //Get images from that dir
-            $images_dir = "./images/banner_images/Classes/";
-            $images = glob($images_dir . "*.{jpg,png}", GLOB_BRACE);
-            //Putting the images into a individual slide
-            foreach ($images as $index => $image) {
-                $safe_image_path = htmlspecialchars($image, ENT_QUOTES, 'UTF-8');
-                echo "<div class='banner_slide'>
-<img src='{$safe_image_path}' alt='School banner image'>
-</div>";
-            }
-            ?>
-            <div class="container">
-                <h1><span class="accent-text">Classes</span></h1>
-            </div>
-            <div class="dots-container">
-                <?php
-                //Creating navigation dots for each image
-                foreach ($images as $index => $image) {
-                    $slide_number = $index + 1;
-                    echo "<span class='dot' onclick='currentSlide($slide_number)'></span>";
-                }
-                ?>
-            </div>
-    </header>
-    <div class="toggle_columns">
-        Toggle column: <a class="toggle-vis" data-column="0">Class</a>
-        - <a class="toggle-vis" data-column="1">Description</a>
+
+<?php include 'show-navbar.php'; show_navbar(); ?>
+
+<div class="banner-wrapper">
+  <img src="images/banner_images/classes/classroom3.jpg" alt="Classroom banner">
+</div>
+
+<h1 class="page-title">Classes</h1>
+
+<div class="classes-grid">
+<?php
+if ($result && $result->num_rows){
+  while($row=$result->fetch_assoc()){
+    $name = htmlspecialchars($row['Class_Name']);
+    $desc = htmlspecialchars($row['Description']);
+    $img  = htmlspecialchars($row['Image_URL']);
+    ?>
+    <div class="class-card">
+      <img class="class-image"
+           src="<?= $img ?>"
+           alt="<?= $name ?>"
+           onerror="if(!this.dataset.fallback){this.dataset.fallback='y';this.src='images/class_pics/default.jpg';}">
+      <div class="class-info">
+        <h3><?= $name ?></h3>
+        <p class="class-desc"><?= nl2br($desc) ?></p>
+      </div>
     </div>
-    <div style="padding-top: 10px; padding-bottom: 30px; width:90%; margin:auto; overflow:auto">
-        <table id="classes" class="display compact">
-            <thead>
-                <tr>
-                    <th>Class</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <?php
-            // Pull Cause data from the databases and create a Jquery Datatable
-            require 'db_configuration.php';
-            $connection = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-            if ($connection === false) {
-                die("Failed to connect to database: " . mysqli_connect_error());
-            }
+    <?php
+  }
+}else{
+  echo '<p style="width:100%;text-align:center;font-size:1.2em;color:#777;">No classes found.</p>';
+}
+$result?->free();
+?>
+</div>
 
-            // Select view of available classes for users from accessing the page 
-            // Admin's can see all classes regardless of status
-            if ((isset($_SESSION['email'])) &&  $_SESSION['role'] == 'admin') {
-                $sql = "SELECT Class_Id, Class_Name, Description, Status
-                FROM classes;";
-            }
+<?php if ($totalPages > 1): ?>
+  <div class="pager">
+    <?php if ($page > 1): ?>
+      <a href="?page=<?= $page-1 ?>">&laquo; Previous</a>
+    <?php endif; ?>
+    Page <?= $page ?> of <?= $totalPages ?>
+    <?php if ($page < $totalPages): ?>
+      <a href="?page=<?= $page+1 ?>">Next &raquo;</a>
+    <?php endif; ?>
+  </div>
+<?php endif; ?>
 
-            //Non-Admin's and users not logged in can only see "Approved" Classes
-            else {
-                $sql = "SELECT Class_Id, Class_Name, Description, Status
-                FROM classes
-                WHERE Status = 'Approved';";
-            }
-
-
-            $result = mysqli_query($connection, $sql);
-            if ($result->num_rows > 0) {
-                // Create table with data from each row
-                while ($row = $result->fetch_assoc()) {
-                    echo '<tr>
-                      <td>' . $row['Class_Name'] . '</td>
-                      <td><p style="text-align: left; word-wrap: break-word;">' . $row['Description'] . '</p></td>
-                    </tr>';
-                }
-            }
-            ?>
-        </table>
-    </div>
-    <script>
-        //Setting slide index and displaying current slide
-        let slideIndex = 1;
-        showSlides(slideIndex);
-        //Moving between slides
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-        //Displaying slides
-        function showSlides(n) {
-            let i;
-            let slides = document.getElementsByClassName("banner_slide");
-            let dots = document.getElementsByClassName("dot");
-            if (n > slides.length) {
-                slideIndex = 1
-            }
-            if (n < 1) {
-                slideIndex = slides.length
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-        }
-    </script>
-    </script>
+<?php $db->close(); include 'footer.php'; ?>
 </body>
-
 </html>

@@ -1,155 +1,133 @@
-<?php
-$status = session_status();
-if ($status == PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-
+<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="icon" href="images/icon_logo.png" type="image/icon type">
-    <title>Instructors</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#instructor_table thead tr').clone(true).appendTo('#instructor_table thead');
-            $('#instructor_table thead tr:eq(1) th').each(function () {
-                var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-            });
+  <meta charset="utf-8">
+  <title>Instructors | Learn & Help</title>
+  <link rel="icon" href="images/icon_logo.png" type="image/png">
 
-            var table = $('#instructors_table').DataTable({
-                initComplete: function () {
-                    // Apply the search
-                    this.api()
-                        .columns()
-                        .every(function () {
-                            var that = this;
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap"  rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
-                            $('input', this.header()).on('keyup change clear', function () {
-                                if (that.search() !== this.value) {
-                                    that.search(this.value).draw();
-                                }
-                            });
-                        });
-                },
-            });
+  
+  <link href="css/main.css" rel="stylesheet">
 
-            $('a.toggle-vis').on('click', function (e) {
-                e.preventDefault();
+  <style>
+    :root{ --accent:#99D930; --card-shadow:0 4px 6px rgba(0,0,0,.1); }
+    body{font-family:'Roboto',sans-serif;background:#fafafa;margin:0;}
 
-                // Get the column API object
-                var column = table.column($(this).attr('data-column'));
+    
+    .intro-banner{
+      background:#1a1a1a;color:#fff;text-align:center;padding:60px 20px 50px;
+    }
+    .intro-banner h1{
+      font-family:'Montserrat',sans-serif;font-size:3rem;font-weight:900;margin:0 0 22px;
+    }
+    .intro-banner h1 .accent-text{color:var(--accent);}
+    .intro-banner p{max-width:820px;margin:0 auto;font-size:1.05rem;line-height:1.65;}
 
-                // Toggle the visibility
-                column.visible(!column.visible());
-            });
-        });
-    </script>
+   
+    #instructor-search{display:block;margin:35px auto 0;padding:.6rem 1rem;font-size:1rem;
+                       max-width:420px;width:90%;border:1px solid #ccc;border-radius:6px;}
+
+   
+    .cards-wrapper{max-width:1000px;margin:1.5rem auto;padding:0 20px;display:flex;
+                   flex-direction:column;gap:40px}
+    .instructor-card{display:flex;flex-direction:row;background:#fff;border-radius:10px;
+                     box-shadow:var(--card-shadow);overflow:hidden;transition:transform .25s;}
+    .instructor-card:hover{transform:translateY(-5px);}
+    .card-img{width:45%;flex-shrink:0;overflow:hidden;}
+    .card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+    .card-body{width:55%;padding:24px 28px;display:flex;flex-direction:column;
+               justify-content:space-between;}
+    .card-body h3{font-family:'Montserrat',sans-serif;margin:0 0 12px;font-size:1.6rem;}
+
+    
+    .card-body .bio{
+      font-size:.85em;         
+      line-height:1.6;
+      color:#333;
+      font-family:'Montserrat',sans-serif;
+      white-space:pre-wrap;
+    }
+
+    .admin-controls{margin-top:14px;}
+    .admin-btn{background:#1976d2;color:#fff;border:none;padding:.25rem .9rem;font-size:.8rem;
+               border-radius:20px;cursor:pointer;margin-right:4px;}
+    .admin-btn:hover{background:#1259a3;}
+
+    @media(max-width:768px){
+      .instructor-card{flex-direction:column;}
+      .card-img,.card-body{width:100%;}
+      .card-img{height:250px;}
+    }
+  </style>
 </head>
 <body>
-<?php include 'show-navbar.php'; ?>
-<?php show_navbar(); ?>
-<header class="inverse">
-    <div class="container">
-        <h1><span class="accent-text">Instructors</span></h1>
+
+<?php include 'show-navbar.php'; show_navbar(); ?>
+
+<section class="intro-banner">
+  <h1><span class="accent-text">Meet&nbsp;our&nbsp;Team</span></h1>
+  <p>
+    Share and pass down our knowledge and skills to our students and help them professionally
+    with love and compassion to become some genius in software development is the only thing
+    that brings smile into our face every day. So, enroll your little ones and your youth in
+    one of our schools and let us transform them joyfully into what you’ve never thought of them.
+  </p>
+</section>
+
+<input id="instructor-search" type="text" placeholder="Search instructors…">
+
+<div class="cards-wrapper" id="cards-wrapper">
+<?php
+require 'db_configuration.php';
+$conn = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+if ($conn->connect_error){ die("Connection failed: ".$conn->connect_error); }
+
+$res = $conn->query("SELECT * FROM instructor ORDER BY instructor_ID ASC");
+while($row = $res->fetch_assoc()):
+  $id    = $row['instructor_ID'];
+  $first = htmlspecialchars($row['First_name']);
+  $last  = htmlspecialchars($row['Last_name']);
+  $bio   = nl2br(htmlspecialchars($row['Bio_data']));
+  $img   = htmlspecialchars(trim(explode(',', $row['Image'])[0]));
+?>
+  <article class="instructor-card" data-filter="<?= strtolower("$first $last ".$row['Bio_data']) ?>">
+    <div class="card-img"><img src="<?= $img ?>" alt="<?= "$first $last" ?>"></div>
+    <div class="card-body">
+      <div>
+        <h3><?= "$first $last" ?></h3>
+        <div class="bio"><?= $bio ?></div>
+      </div>
+      <?php if(isset($_SESSION['role']) && $_SESSION['role']==='admin'): ?>
+      <div class="admin-controls">
+        <form action="admin_edit_instructors.php" method="POST" style="display:inline;">
+          <input type="hidden" name="instructor_ID" value="<?= $id ?>">
+          <button type="submit" name="edit" class="admin-btn">Edit</button>
+        </form>
+        <form action="admin_delete_instructor.php" method="POST"
+              onsubmit="return confirm('Delete this instructor?');" style="display:inline;">
+          <input type="hidden" name="instructor_ID" value="<?= $id ?>">
+          <button type="submit" name="delete" class="admin-btn">Delete</button>
+        </form>
+      </div>
+      <?php endif; ?>
     </div>
-</header>
-<h4></h4>
-<form action="update_instructors.php" method="post" id="add_Instructor" enctype="multipart/form-data">
-
-    <label>
-        <input type="text" name="First_name" placeholder="Enter first Name" required>
-    </label>
-    <br><br>
-    <label>
-        <input type="text" name="Last_name" placeholder="Enter last Name" required>
-    </label>
-    <br><br>
-    <label>
-        <textarea rows=5 cols=90 name="Bio_data" placeholder="Enter Bio_data" required></textarea>
-    </label>
-    <br><br>
-    <label>
-        <input type="file" name="image" accept="image/*" required>
-    </label>
-    <br><br>
-    <input type="hidden" name="action" value="add">
-    <input type="submit" value="Add" style="width: 15%">
-</form>
-<!-- Jquery Data Table -->
-<div class="toggle_columns">
-    Toggle column: <a class="toggle-vis" data-column="0">Instructor ID</a>
-    - <a class="toggle-vis" data-column="1"> First_name</a>
-    - <a class="toggle-vis" data-column="1"> Last_name</a>
-    - <a class="toggle-vis" data-column="2">Bio</a>
-    - <a class="toggle-vis" data-column="4">Image</a>
+  </article>
+<?php endwhile; $conn->close(); ?>
 </div>
-<div style="padding-top: 10px; padding-bottom: 30px; width:90%; margin:auto; overflow:auto">
-    <table id="instructor_table" class="display compact">
-        <thead>
-        <tr>
-            <th>Instructor ID</th>
-            <th> First_name</th><br><br>
-            <th> Last_name</th><br><br>
-            <th>Bio_data</th>
-            <th>image</th>
-            <th>Options</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Populating table with data from the database-->
-        <?php
-        require 'db_configuration.php';
-        // Create connection
-        $conn = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+<?php include 'footer.php'; ?>
 
-        $sql = "SELECT * FROM instructor";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            // Create table with data from each row
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                      <td>" . $row["instructor_ID"] . "</td>
-                      <td>" . $row["First_name"] . "</td>
-                      <td>" . $row["Last_name"] . "</td>
-                      <td>" . $row["Bio_data"] . "</td>
-                      <td>";
-                $imagePaths = explode(',', $row["Image"]); // Split multiple image paths if stored in a single column
-                foreach ($imagePaths as $imagePath) {
-                    echo "<img src='$imagePath' width='100'>";
-                }
-                echo "</td>
-                      <td>
-                        <form action='admin_edit_instructors.php' method='POST'>
-                          <input type='hidden' name='instructor_ID' value='" . $row["instructor_ID"] . "'>
-                          <input type='submit' id='admin_buttons' name='edit' value='Edit'/>
-                        </form>
-                        <form action='admin_delete_instructor.php' method='POST'>
-                          <input type='hidden' name='instructor_ID' value='" . $row["instructor_ID"] . "'>
-                          <input type='submit' id='admin_buttons' name='delete' value='Delete'/>
-                        </form>
-                      </td>
-                    </tr>";
-            }
-        } else {
-            echo "0 results";
-        }
-        $conn->close();
-        ?>
-        </tbody>
-    </table>
-</div>
+<script>
+  const qInput=document.getElementById('instructor-search');
+  const cards=document.querySelectorAll('.instructor-card');
+  qInput.addEventListener('input',e=>{
+    const q=e.target.value.toLowerCase().trim();
+    cards.forEach(c=>c.style.display=c.dataset.filter.includes(q)?'':'none');
+  });
+</script>
 </body>
 </html>

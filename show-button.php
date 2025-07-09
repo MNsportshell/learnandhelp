@@ -4,7 +4,7 @@ function getButton() {
         $label = 'Log Off ' . $_SESSION['first_name'];
         $action = 'logoff.php';
     } else {
-        $label = 'Log On';
+        $label = 'Log on';
         $action = 'loginAction.php';
     }
 

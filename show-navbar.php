@@ -2,31 +2,46 @@
 include 'show-button.php';
 
 function show_navbar() {
-    echo '<div class="navbar">
-		<a href="index.php" id="nav-logo"><img id="logo" src="images/learn_n_help_logo.png"></a>
-		<div>'; getButton(); echo '</div>
-		<a href="home.php">Home</a>
-		<a href="quote_of_the_day.php">Quote</a>
-		<a href="schools.php">Schools</a>
-		<a href="classes.php">Classes</a>
-		<a href="books.php">Books</a>
-		<a href="books_grid.php">Books(Grid)</a>
-		<a href="blog.php">Blog</a>
-		<a href="meet_our_instructors.php">Instructors</a>
-		<a href="suggest_school.php">Suggest a School</a>
-		<a href="contact_us.php">Contact Us</a>';
-
-      if (isset($_SESSION['email'])) {
-        if ($_SESSION['role'] == 'admin') {
-          echo '<a href="administration.php">Administration</a>';
+    echo '
+    <div class="navbar">
+      <div class="navbar-center">
+        <a href="home.php" id="nav-logo">
+            <img id="logo" src="images/icon_logo.png" alt="Learn N Help Logo">
+        </a>
+        <div class="dropdown">
+          <a href="learn.php" class="dropbtn">Learn</a>
+          <div class="dropdown-content">
+            <a href="classes.php">Classes</a>
+            <a href="instructors.php">Instructors</a>
+            <a href="students.php">Students</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="help.php" class="dropbtn">Help</a>
+          <div class="dropdown-content">
+            <a href="schools.php">Schools</a>
+            <a href="books.php">Books</a>
+            <a href="suggest_cause.php">Suggest a Cause</a>
+          </div>
+        </div>
+        <a href="blog.php">Blog</a>
+       
+        <a href="enroll.php" id="register">Enroll Now</a>
+      
+        <a href="contact_us.php">Contact</a>
+        <a href="faq.php">FAQs</a>
+        ';
+        if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
+            echo '<a href="administration.php">Administration</a>';
         }
-        echo '<a href="registration_form.php" id="register">Enroll Now</a>';
-      }elseif(isset($_SESSION['email']) == false){
-        echo '<a href="login.php" id="register">Enroll Now</a>';
-      }
-       echo '</div>';
-
+    echo '
+      </div>
+      
+      <div class="navbar-right">';
+        getButton();
+    echo '
+      </div>
+    </div>
+    ';
 }
-
 ?>
-

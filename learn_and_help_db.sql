@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2024 at 10:38 PM
+-- Generation Time: Jul 01, 2025 at 03:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `learn_and_help_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `batch`
---
-
-CREATE TABLE `batch` (
-  `Batch_Name` varchar(50) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `batch`
---
-
-INSERT INTO `batch` (`Batch_Name`, `start_date`, `end_date`) VALUES
-('2023-2024', '2023-09-01', '2024-05-01'),
-('2024-2025', '2024-09-01', '2025-05-01'),
-('Fall 2024', '2024-08-01', '2024-12-31'),
-('Summer 2023', '2023-06-01', '2023-08-31');
 
 -- --------------------------------------------------------
 
@@ -64,7 +42,11 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`Blog_Id`, `Title`, `Author`, `Description`, `Video_Link`, `Modified_Time`, `Created_Time`) VALUES
-(3, 'Launch of Learn and Web Site', 'Siva Jasthi', 'Had a great meeting with Ms.Manga Rani and Dr. C.A.Prasad.Watch this space for the updated school information.', '', '2024-04-15 05:36:11', '2024-04-12 09:26:16');
+(3, 'Launch of Learn and Web Site\r\n', 'Siva Jasthi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\nLorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \r\n\r\nUt wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.\r\n\r\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\n', '', '2024-04-15 05:36:11', '2024-04-12 09:26:16'),
+(4, 'New Library On Wheels!', 'Siva Jasthi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.', NULL, '0000-00-00 00:00:00', '2025-06-12 00:00:00'),
+(5, 'New Reading Program at ZP High school, Yillandu!\r\n', 'Siva Jasthi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\nLorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \r\n\r\nUt wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.\r\n\r\nDuis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\n', '', '2024-04-15 05:36:11', '2024-04-12 09:26:16'),
+(6, 'Celebrate Our New Graduates! ', 'Siva Jasthi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\nLorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\nLorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.', NULL, '2025-06-12 00:00:00', '2025-06-12 00:00:00'),
+(8, 'New Library!', 'Siva Jasthi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\nLorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\r\n\r\n', '', '0000-00-00 00:00:00', '2025-06-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83,7 +65,11 @@ CREATE TABLE `blog_pictures` (
 --
 
 INSERT INTO `blog_pictures` (`Picture_Id`, `Blog_Id`, `Location`) VALUES
-(2, 3, 'images/blog_pictures/661d112b9fe4c.jpeg');
+(2, 3, 'images/blog_pictures/661d112b9fe4c.jpeg'),
+(3, 5, 'images/blog_pictures/913ee7_ea7bc5046b8d426d8129bd1c74815c17~mv2.avif'),
+(5, 4, 'images/blog_pictures/913ee7_1acba8ce6ade4cf6b3efed25a75b1996~mv2.avif'),
+(6, 6, 'images/blog_pictures/913ee7_cc42e6dac7c24a8ab3cee2b7b403426b~mv2.avif'),
+(8, 8, 'images/blog_pictures/913ee7_bc2649e6374d4a088f89782d57ea8edb~mv2.avif');
 
 -- --------------------------------------------------------
 
@@ -3590,25 +3576,26 @@ CREATE TABLE `classes` (
   `Class_Id` int(11) NOT NULL,
   `Class_Name` varchar(30) DEFAULT NULL,
   `Description` text DEFAULT NULL,
-  `Status` enum('Proposed','Approved','Inactive') NOT NULL DEFAULT 'Proposed'
+  `Status` enum('Proposed','Approved','Inactive') NOT NULL DEFAULT 'Proposed',
+  `Image_URL` varchar(255) NOT NULL DEFAULT 'images/banner_images/classes/default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `classes`
 --
 
-INSERT INTO `classes` (`Class_Id`, `Class_Name`, `Description`, `Status`) VALUES
-(1, 'Python 101', 'Introduction to Python - first course in programming.\r\n\r\nMaps to PCEP - Certified Entry-Level Python Programmer\r\n\r\nhttps://pythoninstitute.org/pcep', 'Approved'),
-(2, 'Python 102', 'Advanced Python.\r\nMaps to PCAP : Certified Associate in Python Programming\r\n\r\nhttps://pythoninstitute.org/pcap', 'Approved'),
-(3, 'Java 101', 'Introduction to Java and Object Oriented Programming.\r\n\r\nMaps to \"Computer Science AP CS A\".\r\n\r\nhttps://apstudents.collegeboard.org/courses/ap-computer-science-a', 'Approved'),
-(4, 'Snap 101', 'Interesting in learning programming through gaming?\r\n\r\nSnap! (developed by University of California, Berkeley) is a free block-based educational graphical programming language and online community.', 'Approved'),
-(5, 'Python DS', 'Python for Data Science.\r\n\r\nWe will explore advanced topics of Python in this course\r\n- numpy\r\n- pandas\r\n- matplotlib\r\n', 'Approved'),
-(6, 'Python ML', 'Python for Machine Learning.\r\n\r\nWe will explore several Machine Learning algorithms in this course using\r\n- numpy\r\n- pandas\r\n- matplotlib\r\n- scikit-learn\r\n\r\nWe will learn about several\r\n- Classification algorithms\r\n- Regression algorithms\r\n- Clustering algorithms\r\n\r\n\r\n', 'Approved'),
-(7, 'SQL 101', 'SQL for beginners.\r\n\r\nIn this course, we will learn about SQL.\r\n\r\nWe will explore several tools to explore the database concepts.\r\n\r\nWe will also build a Python or Java application which extracts the data from MySQL data.', 'Approved'),
-(8, 'HTML/CSS 101', 'HTML (content) and CSS (display) are the core technologies of the Web. Coupled with JavaScript (for behavior), these technologies run 99% of the WebSites.\r\n\r\nIn this course, we will learn about HTML and CSS.\r\n\r\nStudents will build a website to showcase their profile.', 'Approved'),
-(9, 'JavaScript 101', 'JavaScript, often abbreviated as JS, is a programming language and core technology of the Web, alongside HTML and CSS. 99% of websites use JavaScript on the client side for webpage behavior.\r\n\r\nIn this course, we will learn about JavaScript.\r\n\r\nMaps to JSE – Certified Entry-Level JavaScript Programmer (Exam JSE-40-0x)\r\n\r\nhttps://edube.org/study/jse1', 'Approved'),
-(10, 'PHP 101', 'PHP is a server scripting language, and a powerful tool for making dynamic and interactive Web pages.\r\n\r\nIn this course, we will learn about PHP.\r\n\r\nStudents will build an interactive web-site involving HTML, CSS, JavaScript, PHP and MySQL databases.', 'Approved'),
-(11, 'AWS CLP', 'Amazon Cloud Practitioner Certification', 'Proposed');
+INSERT INTO `classes` (`Class_Id`, `Class_Name`, `Description`, `Status`, `Image_URL`) VALUES
+(1, 'Python 101', 'Introduction to Python - first course in programming.\r\n\r\nMaps to PCEP - Certified Entry-Level Python Programmer\r\n\r\nhttps://pythoninstitute.org/pcep', 'Approved', 'images/banner_images/classes/python101.jpg'),
+(2, 'Python 102', 'Advanced Python.\r\nMaps to PCAP : Certified Associate in Python Programming\r\n\r\nhttps://pythoninstitute.org/pcap', 'Approved', 'images/banner_images/classes/python102.jpg'),
+(3, 'Java 101', 'Introduction to Java and Object Oriented Programming.\r\n\r\nMaps to \"Computer Science AP CS A\".\r\n\r\nhttps://apstudents.collegeboard.org/courses/ap-computer-science-a', 'Approved', 'images/banner_images/classes/java101.jpg'),
+(4, 'Snap 101', 'Interesting in learning programming through gaming?\r\n\r\nSnap! (developed by University of California, Berkeley) is a free block-based educational graphical programming language and online community.', 'Approved', 'images/banner_images/classes/snap101.png'),
+(5, 'Python DS', 'Python for Data Science.\r\n\r\nWe will explore advanced topics of Python in this course\r\n- numpy\r\n- pandas\r\n- matplotlib\r\n', 'Approved', 'images/banner_images/classes/pythonds.png'),
+(6, 'Python ML', 'Python for Machine Learning.\r\n\r\nWe will explore several Machine Learning algorithms in this course using\r\n- numpy\r\n- pandas\r\n- matplotlib\r\n- scikit-learn\r\n\r\nWe will learn about several\r\n- Classification algorithms\r\n- Regression algorithms\r\n- Clustering algorithms\r\n\r\n\r\n', 'Approved', 'images/banner_images/classes/pythonml.jpg'),
+(7, 'SQL 101', 'SQL for beginners.\r\n\r\nIn this course, we will learn about SQL.\r\n\r\nWe will explore several tools to explore the database concepts.\r\n\r\nWe will also build a Python or Java application which extracts the data from MySQL data.', 'Approved', 'images/banner_images/classes/sql101.png'),
+(8, 'HTML/CSS 101', 'HTML (content) and CSS (display) are the core technologies of the Web. Coupled with JavaScript (for behavior), these technologies run 99% of the WebSites. In this course, we will learn about HTML and CSS. Students will build a website to showcase their profile.', 'Approved', 'images/banner_images/classes/css101.png'),
+(9, 'JavaScript 101', 'JavaScript, often abbreviated as JS, is a programming language and core technology of the Web, alongside HTML and CSS. 99% of websites use JavaScript on the client side for webpage behavior.\r\n\r\nIn this course, we will learn about JavaScript.\r\n\r\nMaps to JSE – Certified Entry-Level JavaScript Programmer (Exam JSE-40-0x)\r\n\r\nhttps://edube.org/study/jse1', 'Approved', 'images/banner_images/classes/javascript101.png'),
+(10, 'PHP 101', 'PHP is a server scripting language, and a powerful tool for making dynamic and interactive Web pages.\r\n\r\nIn this course, we will learn about PHP.\r\n\r\nStudents will build an interactive web-site involving HTML, CSS, JavaScript, PHP and MySQL databases.', 'Approved', 'images/banner_images/classes/php101.jpg'),
+(11, 'AWS CLP', 'Amazon Cloud Practitioner Certification', 'Proposed', 'images/banner_images/classes/aws_certified.png');
 
 -- --------------------------------------------------------
 
@@ -3629,9 +3616,11 @@ CREATE TABLE `instructor` (
 --
 
 INSERT INTO `instructor` (`instructor_ID`, `First_name`, `Last_name`, `Bio_data`, `Image`) VALUES
-(1, 'Dr. Siva ', 'Jasthi', 'Educator, Mentor, Author, Trainer, Auditor, Software Consultant with over 25 years of experience in the software industry.\r\n20 years of experience in teaching CS classes at Metropolitan State University, MN, USA. 5 years of volunteering at the School of India for Languages and Culture (SILC) as “Digital Literacy\" program designer and coordinator.', 'images/siva.png'),
-(2, 'Ishana ', 'Didwania', 'Ishana Didwania is a senior at Mahtomedi High School. She has completed the 5-year Computer Science program at the School of India for Languages and Culture (SILC) where she studied HTML/CSS, Javascript, PHP, MySQL, Python, and Java. She served as the primary HTML and CSS teacher for 3 years, dedicating over 75 hours per year to teaching 6th grade students. Ishana is also a software engineer and the head of strategy for DiaBuddies, her Technovation team app. She programmed the health tracker feature of the app and authored the business plan which highlighted market research, advertising, and financial planning for the company. Her team was chosen as a US Bank challenge team and given the opportuntity to pitch the app to the US Bank Executive Board. DiaBuddies is one of four Technovation award winning apps from Minnesota. Ishana is an Aspirations in Computer 2023 State Honorable Mention winner and a 2023-24 Target Women in Science and Technology award winner. She is a Minnesota All-State Band flute player and the president of her school band. Ishana is passionate about STEM and challenges herself with AP math and science courses. She works as a math instructor at Mathnasium. In fall of 2024, she will attend Purdue University to major in Computer Science.', 'images/Ishana.png'),
-(3, 'Sumedh ', 'Ghatti ', 'Sumedh Ghatti is a 9th grader at Independence High School, dedicated to nurturing academic growth and inspiring young minds. His journey is distinguished by the prestigious Presidential Award, accompanied by his exceptional performance as the top player on the Junior Varsity Tennis team. With extensive expertise as an app, game developer, and website developer, a passion ignited during his early years at the School of India for Languages and Culture (SILC),\" Sumedh\'s commitment to technology is evident. He earned his Python Entry Level Certified Programmer certification in April 2023, and is working to get his second certification done soon. He has also been selected to join the Deep-Dive AI workshop hosted by the University of Texas at Dallas. Beyond his academic and athletic pursuits, he expresses himself artistically through playing the tabla. In his role as an educator, Sumedh strives to ignite curiosity, foster a pursuit of excellence, and guide students in discovering their passion for coding, mirroring his own journey.', 'images/sumedh.png');
+(1, 'Dr. Siva ', 'Jasthi', 'Educator, Mentor, Author, Trainer, Auditor, Software Consultant with over 25 years of experience in the software industry.\r\n20 years of experience in teaching CS classes at Metropolitan State University, MN, USA. 5 years of volunteering at the School of India for Languages and Culture (SILC) as “Digital Literacy\" program designer and coordinator.', 'images/instructors/siva.png'),
+(2, 'Ishana ', 'Didwania', 'Ishana Didwania, a Ph.D. graduate of Michigan Technological University and preparing for her doctorate, has been a lead instructor for 3 years at Learn And Help., devoting over 75 hours a year teaching HTML/CSS, Javascript, MySQL, Java, and Python to 6th graders. She is one of those young women who inspire admiration for her immense talent and intelligence. In 2023, she received the honorable mention from the State of Minnesota for Aspirations in Computer 2023 and the Target Women in Science and Technology 2023-24 Award. In the same year, she and her team. Technovation. won one the four awards in the US Bank Challenge with the app, DiaBuddies, where she programmed the app\'s health tracking feature and wrote the business plan.', 'images/instructors/Ishana.png'),
+(3, 'Sumedh ', 'Ghatti ', 'With extensive expertise as an app. game developer and website developer,\r\nSumedh Ghatti\'s passion for coding ignited during his early years at the School of India for Languages and Culture (SILC).\" He earned two Python certifications in April 2023. He has also been selected to join the Deep-Dive Al workshop hosted by the University of Texas at Dallas. Beyond his academic and athletic, he expresses himself artistically through playing the tabla. In his role as an educator, Sumedh strives to ignite curiosity, foster a pursuit of excellence, and guide students in discovering their passion for coding, mirroring his own journey. He is also an excellent tennis player distinguished by the prestigious Presidential Award', 'images/instructors/sumedh.png'),
+(4, 'Ahala', 'Ayyalasomayajula', 'Ahala Ayyalasomayajula, an eighth grader at Future Kids School in Hyderabad, Telangana, is an avid reader and curious learner. She began her journey by learning Telugu at Manabadi in Cary, North Carolina, USA, and authored \"Ahala MaaTa\" (2021), a 108-Stanza Satakam, and \"Padmavathi Priva Satakam,\" a collection of 100 poems on Lord Venkateswara. Recognized as the youngest Avadhani (High IQ performer in Hindi, India), she completed her first Ashta Avadhanam in sixth grade under the guidance of Brahmasri Vaddiparti Padmakar Garu. She co-authored \"SHEROES: 256 Inspiring Women From India\" in 2024. Ahala was the first student to receive the \"Python Entry Level Certified Programmer\" (PCEP) certification in the \"Learn and Help\" program and completed Python 101 and Python 102 courses with Dr. Siva Jasthi.', 'images/instructors/Ahala_pp.jpg'),
+(5, 'Deepta', 'Jasthi', 'Deepta was on of the brilliant students in her classes during her studies. In 2016 for instance, she was selected to participate in the Science Olympiad National Tournament at the University of Minnesota\'s Talented Youth Math Program. Outside of her academic and artistic pursuits, she enjoys spending time with friends and family and playing piano, one of her gifted talents. She is currently works at Magna Technology Group in Minnesota. Deepta holds a double major in Data Science and Business. Graduated from UC Berkeley (May 2024) https://www.linkedin.com/in/deeptaj/', 'images/instructors/deepta_pic.png');
 
 -- --------------------------------------------------------
 
@@ -3640,20 +3629,25 @@ INSERT INTO `instructor` (`instructor_ID`, `First_name`, `Last_name`, `Bio_data`
 --
 
 CREATE TABLE `offerings` (
+  `offering_id` int(11) NOT NULL,
   `Batch_Name` varchar(50) NOT NULL,
-  `Class_Id` varchar(50) NOT NULL
+  `day_of_week` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') DEFAULT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
+  `instructor` varchar(100) DEFAULT NULL,
+  `Class_Id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `offerings`
 --
 
-INSERT INTO `offerings` (`Batch_Name`, `Class_Id`) VALUES
-('2024-2025', '1'),
-('2024-2025', '3'),
-('2025-2026', '1'),
-('2025-2026', '3'),
-('2023-2024', '7');
+INSERT INTO `offerings` (`offering_id`, `Batch_Name`, `day_of_week`, `start_time`, `end_time`, `instructor`, `Class_Id`) VALUES
+(1, '2024-2025', NULL, NULL, NULL, NULL, NULL),
+(2, '2024-2025', NULL, NULL, NULL, NULL, NULL),
+(3, '2025-2026', NULL, NULL, NULL, NULL, NULL),
+(4, '2025-2026', NULL, NULL, NULL, NULL, NULL),
+(5, '2023-2024', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3890,17 +3884,12 @@ INSERT INTO `users` (`User_Id`, `First_Name`, `Last_Name`, `Email`, `Phone`, `Ha
 (48, 'Jane', 'Smith', 'janesmith@user.com', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'yes', 'student', '2024-07-02', '2024-07-02', NULL, NULL),
 (49, 'bojo', 'johnson', 'bojo@bojo.com', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'yes', 'student', '2024-07-04', '2024-07-04', NULL, NULL),
 (50, 'Test', 'User', 'testuser@user.com', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'yes', 'student', '2024-07-04', '2024-07-04', NULL, NULL),
-(51, 'johnny', 'doe', 'johnnydoe@john.com', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'yes', 'student', '2024-07-09', '2024-07-09', NULL, NULL);
+(51, 'johnny', 'doe', 'johnnydoe@john.com', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'yes', 'student', '2024-07-09', '2024-07-09', NULL, NULL),
+(54, 'Elizabeth', 'Carlson-Hamme', 'ef1722dt@go.minnstate.edu', NULL, 'ae0cb3637c4d2e43b025174fdf0112a73916fc2a', 'yes', 'student', '2025-06-13', '2025-06-13', NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `batch`
---
-ALTER TABLE `batch`
-  ADD PRIMARY KEY (`Batch_Name`);
 
 --
 -- Indexes for table `blogs`
@@ -3932,6 +3921,13 @@ ALTER TABLE `classes`
 --
 ALTER TABLE `instructor`
   ADD PRIMARY KEY (`instructor_ID`);
+
+--
+-- Indexes for table `offerings`
+--
+ALTER TABLE `offerings`
+  ADD PRIMARY KEY (`offering_id`),
+  ADD KEY `fk_offerings_class` (`Class_Id`);
 
 --
 -- Indexes for table `registrations`
@@ -3967,13 +3963,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `Blog_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Blog_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `blog_pictures`
 --
 ALTER TABLE `blog_pictures`
-  MODIFY `Picture_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Picture_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `books`
@@ -3991,7 +3987,13 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `instructor`
 --
 ALTER TABLE `instructor`
-  MODIFY `instructor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `instructor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `offerings`
+--
+ALTER TABLE `offerings`
+  MODIFY `offering_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `registrations`
@@ -4015,7 +4017,7 @@ ALTER TABLE `schools_suggested`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- Constraints for dumped tables
@@ -4026,6 +4028,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `blog_pictures`
   ADD CONSTRAINT `blog_pictures_ibfk_1` FOREIGN KEY (`Blog_Id`) REFERENCES `blogs` (`Blog_Id`);
+
+--
+-- Constraints for table `offerings`
+--
+ALTER TABLE `offerings`
+  ADD CONSTRAINT `fk_offerings_class` FOREIGN KEY (`Class_Id`) REFERENCES `classes` (`Class_Id`);
 
 --
 -- Constraints for table `registrations`
